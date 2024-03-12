@@ -21,7 +21,8 @@ chrome.storage.local.get("counterKey", function (result) {
     console.log("User has data stored");
     chrome.storage.local.get("counterKey", function (result) {
       console.log("Value is " + result.counterKey);
-    })
+    });
+  }
 });
 
 let counter = 0;
