@@ -14,6 +14,8 @@ addButton.onclick = function () {
 
 // subtract 1 to the counter element
 subtractButton.onclick = function () {
-  counter -= 1;
-  counterElement.innerHTML = counter;
+  if (counter > 0) {
+    counter -= 1;
+    counterElement.innerHTML = counter;
+  }
 };
