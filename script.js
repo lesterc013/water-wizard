@@ -1,21 +1,21 @@
 const addButton = document.getElementById("add");
 const subtractButton = document.getElementById("subtract");
-const counterElement = document.getElementById("counter");
+const cupsDrankElement = document.getElementById("cupsDrank");
 
 let counter = 0;
 // set default value for counter element
-counterElement.innerHTML = counter;
+cupsDrankElement.innerHTML = counter;
 
 // add 1 to the counter element
 addButton.onclick = function () {
   counter += 1;
-  counterElement.innerHTML = counter;
+  cupsDrankElement.innerHTML = counter;
 };
 
 // subtract 1 to the counter element
 subtractButton.onclick = function () {
   if (counter > 0) {
     counter -= 1;
-    counterElement.innerHTML = counter;
+    cupsDrankElement.innerHTML = counter;
   }
 };

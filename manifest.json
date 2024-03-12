@@ -18,11 +18,5 @@
     },
     "default_popup": "popup.html",
     "default_title": "Water Wizard"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["script.js"]
-    }
-  ]
+  }
 }
