@@ -8,20 +8,13 @@ let counter = 0;
 // set default value for cupsDrank element
 cupsDrankElement.innerHTML = counter;
 // set default value for cupsLeft element
-cupsLeftElement.innerHTML = `You have ${idealCups} cups left to go!`;
+cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${idealCups} cups left to drinkity! Keepity Uppity!`;
 
 addButton.onclick = function () {
   // add 1 to the counter. then update cupsDrankElement
   counter += 1;
   cupsDrankElement.innerHTML = counter;
-  // if user still hasnt reached idealCups i.e. 8, display this message
-  if (counter < idealCups) {
-    cupsLeftElement.innerHTML = `You have ${
-      idealCups - counter
-    } cups left to go!`;
-  } else {
-    cupsLeftElement.innerHTML = `You have finished your hydration regime!`;
-  }
+  displayCupsLeft();
 };
 
 subtractButton.onclick = function () {
@@ -29,12 +22,17 @@ subtractButton.onclick = function () {
   if (counter > 0) {
     counter -= 1;
     cupsDrankElement.innerHTML = counter;
-    if (counter < idealCups) {
-      cupsLeftElement.innerHTML = `You have ${
-        idealCups - counter
-      } cups left to go!`;
-    } else {
-      cupsLeftElement.innerHTML = `You have finished your hydration regime!`;
-    }
+    displayCupsLeft();
   }
 };
+
+function displayCupsLeft() {
+  // if user still hasnt reached idealCups i.e. 8, display this message
+  if (counter < idealCups) {
+    cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${
+      idealCups - counter
+    } cups left to drinkity! Keepity Uppity!`;
+  } else {
+    cupsLeftElement.innerHTML = `Yippee Yahooity, you are sufficiently hydratedty! Well Doneity and Keepity Uppity!`;
+  }
+}
