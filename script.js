@@ -26,11 +26,11 @@ cupsDrankElement.innerHTML = counter;
 // set default value for cupsLeft element
 cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${idealCups} cups left to drinkity! Keepity Uppity!`;
 
-addButton.onclick = addButtoncClick;
+addButton.onclick = addButtonClick;
 
 subtractButton.onclick = subtractButtonClick;
 
-function addButtoncClick() {
+function addButtonClick() {
   // add 1 to the counter. then update cupsDrankElement
   counter += 1;
   cupsDrankElement.innerHTML = counter;
