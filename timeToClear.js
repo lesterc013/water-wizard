@@ -1,4 +1,4 @@
-// background script that sets the time to clear the local storage with respect to 0000 of the next day
+// background script that sets the time to clear the local storage with respect to 0000 of the next day. Much help from chatGPT on this
 
 scheduleClear();
 
