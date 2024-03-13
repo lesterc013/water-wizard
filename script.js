@@ -22,10 +22,6 @@ chrome.storage.local.get("counterKey", function (result) {
     cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${idealCups} cups left to drinkity! Keepity Uppity!`;
     // set default value for cupsDrank element
     cupsDrankElement.innerHTML = counter;
-    // // default value for cupsImages div
-    // const image =
-    //   '<img src="images/dead-water-wizard-128.png" alt="dead-wizard">';
-    // cupImagesDiv.innerHTML += image;
     displayCupImages();
     // add and subtract buttons functionalities
     addButton.onclick = addButtonClick;
@@ -84,22 +80,21 @@ function displayCupsLeft() {
       idealCups - counter
     } cups left to drinkity! Keepity Uppity!`;
   } else {
-    cupsLeftElement.innerHTML = `Yippee Yahooity, you are sufficiently hydratedty! Well Doneity and Keepity Uppity!`;
+    cupsLeftElement.innerHTML = `Yippee Yahooity, you are hydratedty! Well Doneity and Keepity Uppity!`;
   }
 }
 
 function displayCupImages() {
   let images = "";
-  // if the counter is 0 - set to dead-water-wizard
-  if (counter == 0) {
-    images = '<img src="images/dead-water-wizard-128.png" alt="dead-wizard">';
-    cupImagesDiv.innerHTML = images;
+  // append the normal water wizard first
+  for (let i = 0; i < counter && i <= 7; i++) {
+    images += '<img src="images/icon-48.png" alt="water-wizard">';
   }
-  // else, append how many number of water wizard images based on the counter value. add condition to only append up to 8 number of water-wizards
-  else {
-    for (let i = 0; i < counter && i <= 7; i++) {
-      images += '<img src="images/icon-48.png" alt="water-wizard">';
-    }
-    cupImagesDiv.innerHTML = images;
+  // append the dead water wizard
+  let numDead = idealCups - counter;
+  for (let j = 0; j < numDead; j++) {
+    images +=
+      '<img src="images/dead-water-wizard-48.png" alt="dead water-wizard">';
   }
+  cupImagesDiv.innerHTML = images;
 }
