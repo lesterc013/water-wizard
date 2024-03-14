@@ -2,6 +2,7 @@
 chrome.runtime.onStartup.addListener(function () {
   if (checkPastMidnight()) {
     console.log("Past midnight");
+    // need this callback function because in checkIfStoredDataFromPreviousDay runs chrome.storage.local.get which is asynchronous and will not allow this if condition to pass even if there is data stored previously. The callback function forces it to wait till the result from the get is obtained
     checkIfStoredDataFromPreviousDay(function (lessThanMidnightOfToday) {
       if (lessThanMidnightOfToday) {
         console.log("Past midnight and data was from previous day");
