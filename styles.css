@@ -18,6 +18,10 @@ body {
   border-radius: 10px;
 }
 
+#cupsDrank {
+  width: 20px;
+}
+
 #buttonsDiv {
   display: flex;
   justify-content: center;
