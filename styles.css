@@ -17,6 +17,7 @@ body {
 button {
   width: 50px;
   height: 40px;
+  cursor: pointer;
 }
 
 #subtract {
