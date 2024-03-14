@@ -1,31 +1,26 @@
-// change setTimeout to alarms so that alarms can clear the storage even when browser is closed + not be affected by service worker terminating
-// create the alarm
-const now = new Date();
-const clearDate = new Date(now);
-// set clearDate to be one day after now
-clearDate.setDate(now.getDate() + 1);
-// set clearDate time to be 0000
-clearDate.setHours(0, 0, 0, 0);
-// milliseconds from now to clearDate
-const timeToClear = clearDate - now;
+// on chrome startup, create an alarm
+chrome.runtime.onStartup.addListener(function () {
+  // const now = new Date();
+  // const clearDate = new Date(now);
+  // // set clearDate to be one day after now
+  // clearDate.setDate(now.getDate() + 1);
+  // // set clearDate time to be 0000
+  // clearDate.setHours(0, 0, 0, 0);
+  // // milliseconds from now to clearDate
+  // const timeToClear = clearDate - now;
 
-// clear any previous alarms
-chrome.alarms.clearAll();
+  // for testing sake, timeToClear will be 60000ms or 1min
+  const timeToClear = 30000;
 
-// create the alarm that will fire off within timeToClear
-alarmInfo = {
-  when: Date.now() + timeToClear,
-};
-chrome.alarms.create("clearStorageAlarm", alarmInfo);
-console.log("Alarm created");
-console.log("Time to clear ", timeToClear);
+  // clear any previous alarms
+  chrome.alarms.clearAll();
 
-// now create the alarm listener that will listen for the alarm name from on top. once alarm fires, execute the clearStorage function
-chrome.alarms.onAlarm.addListener(function (alarm) {
-  console.log("Alarm fired", alarm);
-  if (alarm.name === "clearStorageAlarm") {
-    clearStorage();
-  }
+  alarmInfo = {
+    when: Date.now() + timeToClear,
+  };
+  chrome.alarms.create("clearStorageAlarm", alarmInfo);
+  console.log("Alarm created");
+  console.log("Time to clear ", timeToClear);
 });
 
 // function to clear the storage
@@ -33,3 +28,25 @@ function clearStorage() {
   chrome.storage.local.clear(function () {});
   console.log("Storage cleared at 0000");
 }
+
+// create alarm listener
+chrome.alarms.onAlarm.addListener(function (alarm) {
+  console.log("Alarm fired", alarm);
+  if (alarm.name === "clearStorageAlarm") {
+    // clear storage
+    clearStorage();
+    // set another alarm
+    // for testing sake, timeToClear will be 60000ms or 1min
+    const timeToClear = 30000;
+
+    // clear any previous alarms
+    chrome.alarms.clearAll();
+
+    alarmInfo = {
+      when: Date.now() + timeToClear,
+    };
+    chrome.alarms.create("clearStorageAlarm", alarmInfo);
+    console.log("Alarm created");
+    console.log("Time to clear ", timeToClear);
+  }
+});
