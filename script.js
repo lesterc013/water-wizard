@@ -19,7 +19,7 @@ chrome.storage.local.get("counterKey", function (result) {
       console.log("counterKey value set to " + counter);
     });
     // set default value for cupsLeft element
-    cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${idealCups} cups left to drinkity! Keepity Uppity!`;
+    cupsLeftElement.innerHTML = `Bibbity Boppity, drink ${idealCups} more cups of water to save the wizards! Keepity Uppity!`;
     // set default value for cupsDrank element
     cupsDrankElement.innerHTML = counter;
     displayCupImages();
@@ -76,11 +76,11 @@ function subtractButtonClick() {
 function displayCupsLeft() {
   // if user still hasnt reached idealCups i.e. 8, display this message
   if (counter < idealCups) {
-    cupsLeftElement.innerHTML = `Bibbity Boppity, you have ${
+    cupsLeftElement.innerHTML = `Bibbity Boppity, drink ${
       idealCups - counter
-    } cups left to drinkity! Keepity Uppity!`;
+    } more cups of water to save the wizards! Keepity Uppity!`;
   } else {
-    cupsLeftElement.innerHTML = `Yippee Yahooity, you are hydratedty! Well Doneity and Keepity Uppity!`;
+    cupsLeftElement.innerHTML = `Yippee Yahooity, all wizards saved and you are hydratedty! Well Doneity!`;
   }
 }
 
