@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Water Wizard",
   "version": "1.1",
-  "description": "Let the Water Wizard keep you healthy and hydrated! Version 1.1: Fixed bug that only clears past day's storage when time is and only is 0 hours 0 mins instead of if time is past 0 hours 0 mins 0 seconds 0 milliseconds",
+  "description": "Let the Water Wizard keep you healthy and hydrated! Version 1.1: Fixed bug that does not clear past storage after current 0000",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
