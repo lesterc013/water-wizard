@@ -1,3 +1,6 @@
+console.log(
+  "This is v1.2 - removed service worker usage and put all clearing logic in main script"
+);
 const addButton = document.getElementById("add");
 const subtractButton = document.getElementById("subtract");
 const cupsDrankElement = document.getElementById("cupsDrank");
@@ -33,8 +36,15 @@ chrome.storage.local.get("counterKey", function (result) {
           " timestamp is " +
           result.counterKey.timestamp
       );
-      // update the value of counter to what was stored
       counter = result.counterKey.counter;
+      timestamp = result.counterKey.timestamp;
+      if (checkIfStoredDataFromPreviousDay(timestamp)) {
+        clearStorage();
+        // reset counter value to be 0
+        counter = 0;
+        setCounterAndTimestamp();
+      }
+      // else if data was from today, dont need to do anything
       // value for cupsLeft
       displayCupsLeft();
       // value for cupsDrank
@@ -103,4 +113,26 @@ function setCounterAndTimestamp() {
       "counterKey value set to " + counter + " timestamp value at " + timestamp
     );
   });
+}
+
+// check if the time of the inputs are less than the 0000 of today
+function checkIfStoredDataFromPreviousDay(currentTimestamp) {
+  // - get a variable that contains the 0000 of today
+  const now = new Date();
+  const midnightOfToday = now.setHours(0, 0, 0, 0);
+  console.log("midnight of today is " + midnightOfToday);
+  let lessThanMidnightOfToday = false;
+  if (currentTimestamp < midnightOfToday) {
+    lessThanMidnightOfToday = true;
+  }
+  console.log(
+    "Data stored before midnight of today?" + lessThanMidnightOfToday
+  );
+  return lessThanMidnightOfToday;
+}
+
+// function to clear the storage
+function clearStorage() {
+  chrome.storage.local.clear(function () {});
+  console.log("Storage cleared");
 }
