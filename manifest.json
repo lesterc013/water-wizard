@@ -19,8 +19,5 @@
     "default_popup": "popup.html",
     "default_title": "Water Wizard"
   },
-  "permissions": ["storage", "alarms"],
-  "background": {
-    "service_worker": "timeToClear.js"
-  }
+  "permissions": ["storage"]
 }
