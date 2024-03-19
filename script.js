@@ -14,11 +14,7 @@ chrome.storage.local.get("counterKey", function (result) {
   // if user has not logged in before:
   if (result["counterKey"] === undefined) {
     console.log("User first time");
-    // set the counterKey to the default value of counter i.e. 0
-    chrome.storage.local.set({ counterKey: counter }, function () {
-      console.log("counterKey value set to " + counter);
-    });
-    // set default value for cupsLeft element
+    setCounterAndTimestamp();
     cupsLeftElement.innerHTML = `Bibbity Boppity, drink ${idealCups} more cups of water to save the wizards! Keepity Uppity!`;
     // set default value for cupsDrank element
     cupsDrankElement.innerHTML = counter;
@@ -31,9 +27,14 @@ chrome.storage.local.get("counterKey", function (result) {
   else {
     console.log("User has data stored");
     chrome.storage.local.get("counterKey", function (result) {
-      console.log("Value is " + result.counterKey);
+      console.log(
+        "Value is " +
+          result.counterKey.counter +
+          " timestamp is " +
+          result.counterKey.timestamp
+      );
       // update the value of counter to what was stored
-      counter = result.counterKey;
+      counter = result.counterKey.counter;
       // value for cupsLeft
       displayCupsLeft();
       // value for cupsDrank
@@ -51,10 +52,7 @@ function addButtonClick() {
   // add 1 to the counter. then update cupsDrankElement
   counter += 1;
   cupsDrankElement.innerHTML = counter;
-  // update the value of storage with current counter value
-  chrome.storage.local.set({ counterKey: counter }, function () {
-    console.log("counterKey value set to " + counter);
-  });
+  setCounterAndTimestamp();
   displayCupsLeft();
   displayCupImages();
 }
@@ -64,10 +62,7 @@ function subtractButtonClick() {
   if (counter > 0) {
     counter -= 1;
     cupsDrankElement.innerHTML = counter;
-    // update the value of storage with current counter value
-    chrome.storage.local.set({ counterKey: counter }, function () {
-      console.log("counterKey value set to " + counter);
-    });
+    setCounterAndTimestamp();
     displayCupsLeft();
     displayCupImages();
   }
@@ -97,4 +92,15 @@ function displayCupImages() {
       '<img src="images/dead-water-wizard-48.png" alt="dead water-wizard">';
   }
   cupImagesDiv.innerHTML = images;
+}
+
+function setCounterAndTimestamp() {
+  // counter is global
+  // timestamp need to make
+  const timestamp = Date.now();
+  chrome.storage.local.set({ counterKey: { counter, timestamp } }, function () {
+    console.log(
+      "counterKey value set to " + counter + " timestamp value at " + timestamp
+    );
+  });
 }
