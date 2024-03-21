@@ -69,7 +69,20 @@ function checkPastMidnight() {
   const now = new Date();
   console.log("now hours " + now.getHours());
   console.log("now minutes " + now.getMinutes());
-  if (now.getHours() == 0 && now.getMinutes() == 0) {
+  // check if any case that the time is > 0 hours, 0 mins, 0 secs, and 0 ms - if any case is true, means definitely past midnight
+  if (
+    // hours > 0
+    now.getHours() > 0 ||
+    // hours == 0 && mins > 0
+    (now.getHours() == 0 && now.getMinutes() > 0) ||
+    // hours == 0 && mins == 0 && seconds > 0
+    (now.getHours() == 0 && now.getMinutes() == 0 && now.getSeconds() > 0) ||
+    // hours == 0 && mins == 0 && seconds == 0 && milliseconds > 0
+    (now.getHours() == 0 &&
+      now.getMinutes() == 0 &&
+      now.getSeconds() == 0 &&
+      now.getMilliseconds() > 0)
+  ) {
     return true;
   } else return false;
 }
@@ -78,7 +91,7 @@ function checkPastMidnight() {
 function checkIfStoredDataFromPreviousDay(callback) {
   // - get a variable that contains the 0000 of today
   const now = new Date();
-  const midnightOfToday = Date.now(now.setHours(0, 0, 0, 0));
+  const midnightOfToday = now.setHours(0, 0, 0, 0);
   console.log("midnight of today is " + midnightOfToday);
   let lessThanMidnightOfToday = false;
   // - get the timestamps of all the inputs in the storage
@@ -89,7 +102,9 @@ function checkIfStoredDataFromPreviousDay(callback) {
     if (timestamp < midnightOfToday) {
       lessThanMidnightOfToday = true;
     }
-    console.log(lessThanMidnightOfToday);
+    console.log(
+      "Data stored before midnight of today?" + lessThanMidnightOfToday
+    );
     callback(lessThanMidnightOfToday);
   });
 }
